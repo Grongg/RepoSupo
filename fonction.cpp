@@ -1,12 +1,15 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 
-
-void headerfilegenerator (std::string className ){
+void headerfilegenerator (std::string className, std::vector<std::string> attributs){
     std::ofstream headerFile(className + ".h");
     headerFile << "#ifndef " << className << "_H" << std::endl;
     headerFile << "#define " << className << "_H" << std::endl;
+    headerFile << "#include <iostream>" << std::endl;
+    headerFile << "#include <string>" << std::endl;
+
     headerFile << std::endl;
     headerFile << "class " << className << " {" << std::endl;
     headerFile << "public:" << std::endl;
@@ -14,7 +17,11 @@ void headerfilegenerator (std::string className ){
     headerFile << std::endl;
     headerFile << std::endl;
     headerFile << "private:" << std::endl;
-
+    for (size_t i = 0; i < attributs.size(); i++)
+    {
+        headerFile << "\t" << "std::string " << attributs[i] << ";" << std::endl;
+    } 
+    headerFile << "};" << std::endl;
     headerFile << std::endl;
     headerFile << "#endif // " << className << "_H" << std::endl;
     headerFile.close();
