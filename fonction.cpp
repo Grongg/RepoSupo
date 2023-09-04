@@ -81,7 +81,7 @@ void sourcefilegenerator(std::string className, std::vector<std::string> attribu
         sourceFile << "\t return " << attributs[i] << ";\n";
         sourceFile << "}";
         sourceFile << "\t void " << className << "::set" << attributs[i] << "("
-                   << "int" << attributs[i] << ")const{\n";
+                   << "std::string " << attributs[i] << ")const{\n";
         sourceFile << "\t this->" << attributs[i] << ";\n";
         sourceFile << "}";
     }
