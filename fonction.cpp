@@ -59,7 +59,6 @@ void sourcefilegenerator(std::string className, std::vector<std::string> attribu
     std::ofstream sourceFile(className + ".cpp");
     sourceFile << "#include \"" << className << ".h\"" << std::endl;
     sourceFile << std::endl;
-    sourceFile << className << "::" << className << "() {" << std::endl;
     sourceFile << "    // Constructeur par défaut" << std::endl;
     sourceFile << "\n";
     sourceFile << "\t" << className << "::" << className << "()"
@@ -68,6 +67,7 @@ void sourcefilegenerator(std::string className, std::vector<std::string> attribu
     {
         sourceFile << "\t" << attributs[i] << " = \"\";\n";
     }
+    sourceFile << "}";
     sourceFile << "\n";
     sourceFile << "\t" << className << "::" << className << "("
                << "{\n";
@@ -76,11 +76,13 @@ void sourcefilegenerator(std::string className, std::vector<std::string> attribu
     sourceFile << "\n";
     for (size_t i = 0; i < attributs.size(); i++)
     {
-        sourceFile << "\t int" << className << "::get" << attributs[i] << "()const{\n";
+        sourceFile << "\t int " << className << "::get" << attributs[i] << "()const{\n";
         sourceFile << "\t return" << attributs[i] << ";\n";
-        sourceFile << "\t void" << className << "::set" << attributs[i] << "("
+        sourceFile << "}";
+        sourceFile << "\t void " << className << "::set" << attributs[i] << "("
                    << "int" << attributs[i] << ")const{\n";
         sourceFile << "\t this->" << attributs[i] << ";\n";
+        sourceFile << "}";
     }
     sourceFile.close();
 }
