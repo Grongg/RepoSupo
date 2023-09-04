@@ -6,10 +6,15 @@
 
 void headerfilegenerator (std::string className, std::vector<std::string> attributs){
     std::ofstream headerFile(className + ".h");
-    string constructor = "";
+    std::string constructor = "";
+    std::string headerName = className;
 
-    headerFile << "#ifndef " << className << "_H" << std::endl;
-    headerFile << "#define " << className << "_H" << std::endl;
+    for (int i = 0; headerName[i] != '\0'; i++)
+    {
+        headerName[i] = toupper(headerName[i]);
+    }
+    headerFile << "#ifndef " << headerName << "_H" << std::endl;
+    headerFile << "#define " << headerName << "_H" << std::endl;
     headerFile << "#include <iostream>" << std::endl;
     headerFile << "#include <string>" << std::endl;
 
@@ -37,7 +42,6 @@ void headerfilegenerator (std::string className, std::vector<std::string> attrib
         headerFile << "\tvoid set" << tmp << "(std::string _" << attributs[i] << ");" << std::endl;
         headerFile << std::endl;
     } 
-    headerFile << std::endl;
     headerFile << "private:" << std::endl;
     for (size_t i = 0; i < attributs.size(); i++)
     {
@@ -45,7 +49,7 @@ void headerfilegenerator (std::string className, std::vector<std::string> attrib
     } 
     headerFile << "};" << std::endl;
     headerFile << std::endl;
-    headerFile << "#endif // " << className << "_H" << std::endl;
+    headerFile << "#endif // " << headerName << "_H" << std::endl;
     headerFile.close();
 
 }
