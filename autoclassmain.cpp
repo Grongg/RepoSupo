@@ -42,6 +42,7 @@ int main()
     menu(className);
     headerfilegenerator(className, attr);
     sourcefilegenerator(className, attr);
+    mainfilegenerator(className, attr);
 
     return 0;
 }
