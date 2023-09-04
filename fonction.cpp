@@ -2,10 +2,12 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include "autoclass.hpp"
 
-void headerfilegenerator(std::string className, std::vector<std::string> attributs)
-{
+void headerfilegenerator (std::string className, std::vector<std::string> attributs){
     std::ofstream headerFile(className + ".h");
+    string constructor = "";
+
     headerFile << "#ifndef " << className << "_H" << std::endl;
     headerFile << "#define " << className << "_H" << std::endl;
     headerFile << "#include <iostream>" << std::endl;
@@ -14,20 +16,40 @@ void headerfilegenerator(std::string className, std::vector<std::string> attribu
     headerFile << std::endl;
     headerFile << "class " << className << " {" << std::endl;
     headerFile << "public:" << std::endl;
-    headerFile << "    " << className << "();" << std::endl;
-    headerFile << std::endl;
+    for (size_t i = 0; i < attributs.size(); i++)
+    {
+        if (i + 1 >= attributs.size())
+            constructor += "std::string _" + attributs[i];
+        else
+            constructor += "std::string _" + attributs[i] + ", ";
+    }
+    headerFile << "\t" << className << "();" << std::endl;
+    headerFile << "\t" << className << "(" << constructor << ");" << std::endl;
+    headerFile << "\t~" << className << "();" << std::endl;
+    headerFile << endl;
+    std::string tmp;
+    for (size_t i = 0; i < attributs.size(); i++)
+    {
+        tmp = attributs[i];
+        tmp[0] = toupper(tmp[0]);
+        //mettre la premiere lettre de l'attribut en Capitalise avec toupper()
+        headerFile << "\tstd::string get" << tmp << "() const;" << std::endl;
+        headerFile << "\tvoid set" << tmp << "(std::string _" << attributs[i] << ");" << std::endl;
+        headerFile << std::endl;
+    } 
     headerFile << std::endl;
     headerFile << "private:" << std::endl;
     for (size_t i = 0; i < attributs.size(); i++)
     {
-        headerFile << "\t"
-                   << "std::string " << attributs[i] << ";" << std::endl;
-    }
+        headerFile << "\t" << "std::string " << attributs[i] << ";" << std::endl;
+    } 
     headerFile << "};" << std::endl;
     headerFile << std::endl;
     headerFile << "#endif // " << className << "_H" << std::endl;
     headerFile.close();
+
 }
+
 void sourcefilegenerator(std::string className, std::vector<std::string> attributs)
 {
     std::ofstream sourceFile(className + ".cpp");
@@ -40,7 +62,7 @@ void sourcefilegenerator(std::string className, std::vector<std::string> attribu
                << "{\n";
     for (size_t i = 0; i < attributs.size(); i++)
     {
-        sourceFile << "\t" << attribus[i] << " = \"\";\n";
+        sourceFile << "\t" << attributs[i] << " = \"\";\n";
     }
     sourceFile << "\n";
     sourceFile << "\t" << className << "::" << className << "("
@@ -48,7 +70,7 @@ void sourcefilegenerator(std::string className, std::vector<std::string> attribu
 
     // getvalue
     sourceFile << "\n";
-    for (size_t i = 0; i < attributs.size(); i++ 0)
+    for (size_t i = 0; i < attributs.size(); i++)
     {
         sourceFile << "\t int" << className << "::get" << attributs[i] << "()const{\n";
         sourceFile << "\t return" << attributs[i] << ";\n";

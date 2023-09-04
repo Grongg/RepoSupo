@@ -1,9 +1,4 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <fstream>
-#include <sstream>
+#include "autoclass.hpp"
 
 using namespace std;
 
@@ -37,16 +32,16 @@ void menu(string className)
     dispAttr();
 }
 
-void headerfilegenerator (std::string className, std::vector<std::string> attributs);
-
 int main()
 {
     string className;
 
     cout << "Veuillez entrer le nom de la classe:" << endl;
     getline(cin, className);
+    className[0] = toupper(className[0]);
     menu(className);
     headerfilegenerator(className, attr);
+    sourcefilegenerator(className, attr);
 
     return 0;
 }
