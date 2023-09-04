@@ -1,6 +1,12 @@
 # Prerequisites
 *.d
 
+Makefile
+Test.cpp
+Test.h
+main.cpp
+myprogram
+
 # Compiled Object files
 *.slo
 *.lo

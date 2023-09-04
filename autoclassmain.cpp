@@ -19,8 +19,7 @@ void menu(string className)
 {
     string attributes, token;
 
-    cout << className << endl;
-    cout << "Veuillez entrer les atributs de la classe:" << endl;
+    cout << "Veuillez entrer les attributs de la classe:" << endl;
     getline(cin, attributes);
     stringstream iss(attributes);
     while (getline(iss, token, ' '))
@@ -43,6 +42,7 @@ int main()
     headerfilegenerator(className, attr);
     sourcefilegenerator(className, attr);
     mainfilegenerator(className, attr);
+    makefilegenerator(className);
 
     return 0;
 }

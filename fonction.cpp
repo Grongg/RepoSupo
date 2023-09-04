@@ -31,16 +31,14 @@ void headerfilegenerator(std::string className, std::vector<std::string> attribu
     }
     headerFile << "\t" << className << "();" << std::endl;
     headerFile << "\t" << className << "(" << constructor << ");" << std::endl;
-    headerFile << "\t~" << className << "();" << std::endl;
     headerFile << endl;
     std::string tmp;
     for (size_t i = 0; i < attributs.size(); i++)
     {
         tmp = attributs[i];
         tmp[0] = toupper(tmp[0]);
-        // mettre la premiere lettre de l'attribut en Capitalise avec toupper()
         headerFile << "\tstd::string get" << tmp << "() const;" << std::endl;
-        headerFile << "\tvoid set" << tmp << "(std::string _" << attributs[i] << ");" << std::endl;
+        headerFile << "\tvoid set" << tmp << "(std::string " << attributs[i] << ");" << std::endl;
         headerFile << std::endl;
     }
     headerFile << "private:" << std::endl;
@@ -58,11 +56,12 @@ void headerfilegenerator(std::string className, std::vector<std::string> attribu
 void sourcefilegenerator(std::string className, std::vector<std::string> attributs)
 {
     std::ofstream sourceFile(className + ".cpp");
+    std::string constructor, tmp;
     sourceFile << "#include \"" << className << ".h\"" << std::endl;
     sourceFile << std::endl;
     sourceFile << "    // Constructeur par défaut" << std::endl;
     sourceFile << "\n";
-    sourceFile << "\t" << className << "::" << className << "()"
+    sourceFile << className << "::" << className << "()"
                << "{\n";
     for (size_t i = 0; i < attributs.size(); i++)
     {
@@ -70,42 +69,61 @@ void sourcefilegenerator(std::string className, std::vector<std::string> attribu
     }
     sourceFile << "}";
     sourceFile << "\n";
-    sourceFile << "\t" << className << "::" << className << "("
-               << "{\n";
+     for (size_t i = 0; i < attributs.size(); i++)
+    {
+        if (i + 1 >= attributs.size())
+            constructor += "std::string _" + attributs[i];
+        else
+            constructor += "std::string _" + attributs[i] + ", ";
+    }
+    sourceFile << className << "::" << className << "(" << constructor << ")"
+               << "{\n\n";
+    for (size_t i = 0; i < attributs.size(); i++)
+    {
+        sourceFile << "\tthis->" << attributs[i] << " = _" << attributs[i] << ";" << std::endl;
+    }
+    sourceFile << "}\n";
 
     // getvalue/setvalue
     sourceFile << "\n";
     for (size_t i = 0; i < attributs.size(); i++)
     {
-        sourceFile << "\t int " << className << "::get" << attributs[i] << "()const{\n";
-        sourceFile << "\t return " << attributs[i] << ";\n";
-        sourceFile << "}";
-        sourceFile << "\t void " << className << "::set" << attributs[i] << "("
-                   << "std::string " << attributs[i] << ")const{\n";
-        sourceFile << "\t this->" << attributs[i] << ";\n";
+        tmp = attributs[i];
+        tmp[0] = toupper(tmp[0]);
+        sourceFile << "std::string " << className << "::get" << tmp << "()const{\n";
+        sourceFile << "\treturn " << attributs[i] << ";\n";
+        sourceFile << "}\n";
+        sourceFile << "void " << className << "::set" << tmp << "("
+                   << "std::string " << attributs[i] << "){\n";
+        sourceFile << "\tthis->" << attributs[i] << " = " << attributs[i] << ";\n";
         sourceFile << "}";
     }
     sourceFile.close();
 }
-void mainfilegenerator(std::string className)
+void mainfilegenerator(std::string className, std::vector<std::string> attributs)
 {
     std::ofstream mainFile("main.cpp");
+    std::string tmp;
     mainFile << "#include \"" << className << ".h\"" << std::endl;
     mainFile << "#include <iostream>" << std::endl;
     mainFile << std::endl;
     mainFile << "int main() {" << std::endl;
-    mainFile << className << " obj;\n";
+    mainFile << "\t" << className << " obj;\n";
     for (size_t i = 0; i < attributs.size(); i++)
     {
-        mainFile << "obj.set" << attributs[i] << "(42);\n";
+        tmp = attributs[i];
+        tmp[0] = toupper(tmp[0]);
+        mainFile << "\tobj.set" << tmp << "(42);\n";
     }
     for (size_t i = 0; i < attributs.size(); i++)
     {
-        mainFile << "std::cout<<\"<<" << attributs[i] << " =\""
-                 << "obj.get" << attributs[i] << "()<<std::endl;";
+        tmp = attributs[i];
+        tmp[0] = toupper(tmp[0]);
+        mainFile << "\tstd::cout << \"" << attributs[i] << " = \" "
+                 << "<< obj.get" << tmp << "() << std::endl;" << std::endl;
     }
 
-    mainFile << "    return 0;" << std::endl;
+    mainFile << "\n\treturn 0;" << std::endl;
     mainFile << "}" << std::endl;
     mainFile.close();
 }

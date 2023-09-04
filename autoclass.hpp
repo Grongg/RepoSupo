@@ -14,7 +14,7 @@ void dispAttr();
 void menu(string className);
 void headerfilegenerator (std::string className, std::vector<std::string> attributs);
 void sourcefilegenerator ( std::string className, std::vector<std::string> attributs);
-void mainfilegenerator( std::string className);
+void mainfilegenerator(std::string className, std::vector<std::string> attributs);
 void makefilegenerator (std::string className);
 
 #endif
