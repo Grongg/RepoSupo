@@ -105,15 +105,16 @@ void mainfilegenerator(std::string className, std::vector<std::string> attributs
     std::ofstream mainFile("main.cpp");
     std::string tmp;
     mainFile << "#include \"" << className << ".h\"" << std::endl;
-    mainFile << "#include <iostream>" << std::endl;
     mainFile << std::endl;
     mainFile << "int main() {" << std::endl;
     mainFile << "\t" << className << " obj;\n";
-    for (size_t i = 0; i < attributs.size(); i++)
+    mainFile << "\tsrand((unsigned) time(NULL));" << std::endl;
+    for (size_t i = 0, j = 1; i < attributs.size(); i++, j++)
     {
         tmp = attributs[i];
         tmp[0] = toupper(tmp[0]);
-        mainFile << "\tobj.set" << tmp << "(42);\n";
+        mainFile << "\tint randomNb" << j <<" = rand() % 100;" << std::endl;
+        mainFile << "\tobj.set" << tmp << "(std::to_string(randomNb" << j << "));\n";
     }
     for (size_t i = 0; i < attributs.size(); i++)
     {
