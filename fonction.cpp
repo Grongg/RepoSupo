@@ -73,7 +73,7 @@ void sourcefilegenerator(std::string className, std::vector<std::string> attribu
     sourceFile << "\t" << className << "::" << className << "("
                << "{\n";
 
-    // getvalue
+    // getvalue/setvalue
     sourceFile << "\n";
     for (size_t i = 0; i < attributs.size(); i++)
     {
@@ -94,6 +94,17 @@ void mainfilegenerator(std::string className)
     mainFile << "#include <iostream>" << std::endl;
     mainFile << std::endl;
     mainFile << "int main() {" << std::endl;
+    mainFile << className << "obj;\n";
+    for (size_t i = 0; i < attributs.size(); i++)
+    {
+        mainFile << "obj.set" << attributs[i] << "(42);\n";
+    }
+    for (size_t i = 0; i < attributs.size(); i++)
+    {
+        mainFile << "std::cout<<\"" << attributs[i] << " =\""
+                 << "obj.get" << attributs[i] << "()<<std::endl;";
+    }
+
     mainFile << "    return 0;" << std::endl;
     mainFile << "}" << std::endl;
     mainFile.close();
