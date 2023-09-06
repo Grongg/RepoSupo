@@ -148,7 +148,7 @@ void makefilegenerator(std::string className)
     makefile.close();
 }
 // fonction pour les données valide
-bool validatentry(const std::string blabla)
+bool validateEntry(const std::string blabla)
 {
     for (char x : blabla)
     {
@@ -163,7 +163,7 @@ bool validatentry(const std::string blabla)
 // fonction pour le duplicate
 bool duplicate(const std::string attrName, std::vector<std::string> attr)
 {
-
+    //adapt to map
     return find(attr.begin(), attr.end(), attrName) != attr.end();
 }
 
@@ -172,7 +172,7 @@ bool isValidFileName(const string &fileName)
 {
     for (char c : fileName)
     {
-        if (!isalnum(c) && c != '_' && c != '.')
+        if (!isalnum(c) || c == '_' || c == '.')
         {
             return false;
         }

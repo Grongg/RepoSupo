@@ -6,6 +6,9 @@ Test.cpp
 Test.h
 main.cpp
 myprogram
+.vscode
+
+
 
 # Compiled Object files
 *.slo

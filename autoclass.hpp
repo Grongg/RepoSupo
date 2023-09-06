@@ -16,5 +16,7 @@ void headerfilegenerator (std::string className, std::vector<std::string> attrib
 void sourcefilegenerator ( std::string className, std::vector<std::string> attributs);
 void mainfilegenerator(std::string className, std::vector<std::string> attributs);
 void makefilegenerator (std::string className);
+bool validateEntry(const std::string blabla);
+bool isValidFileName(const string &fileName);
 
 #endif
