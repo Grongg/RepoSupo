@@ -57,9 +57,9 @@ git restore <nom du fichier> -> reset le contenu du fichier sur la derniere vers
 
 ## **Remarque**
 
-    Le programme s'assure que les noms d'attributs sont valides (alphanumériques sans caractères spéciaux).
-    Il vérifie les noms d'attributs en double.
-    Les fichiers générés sont nommés en fonction du nom de classe fourni.
-    Le programme principal généré démontre comment définir et obtenir des valeurs d'attribut pour la classe.
+Le programme s'assure que les noms d'attributs sont valides (alphanumériques sans caractères spéciaux).
+Il vérifie les noms d'attributs en double.
+Les fichiers générés sont nommés en fonction du nom de classe fourni.
+Le programme principal généré démontre comment définir et obtenir des valeurs d'attribut pour la classe.
 
 Assurez-vous de compiler et d'exécuter ce programme dans un répertoire où vous avez des autorisations d'écriture pour la création de fichiers.
