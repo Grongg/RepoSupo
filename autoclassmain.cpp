@@ -108,14 +108,28 @@ void menu(string className)
 
 int main()
 {
+
     string className;
 
     cout << "Veuillez entrer le nom de la classe:" << endl;
     getline(cin, className);
-    if (!validateEntry(className))
-        cout << "machin diozndzio" << endl;
-    if (!isValidFileName(className))
-        cout << "machin diozndzio" << endl;
+    try
+    {
+        validateEntry(className)
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "Error:9001 Merci de ne pas utiliser de Caractère spéciaux =>" << e.what() << '\n';
+    }
+    try
+    {
+        isValidFileName(className)
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "Error:9002 Merci de ne pas utiliser de Caractère spéciaux =>" << e.what() << '\n';
+    }
+
     className[0] = toupper(className[0]);
     menu(className);
     headerfilegenerator(className, attr);
