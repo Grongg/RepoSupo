@@ -156,8 +156,8 @@ bool validatentry(const std::string blabla)
         {
             return false;
         }
-        return true;
     }
+    return true;
 }
 // fonction pour le duplicate
 bool duplicate(const std::string attrName)
