@@ -32,8 +32,11 @@ git restore <nom du fichier> -> reset le contenu du fichier sur la derniere vers
 **_sourcefilegenerator_** : Génère le fichier source de classe avec les méthodes de constructeur et de getter/setter.
 **_mainfilegenerator_** : Génère un programme principal d'exemple pour démontrer l'utilisation de la classe.
 **_makefilegenerator_** : Génère un fichier Makefile pour la compilation du programme.
+
 **_validatentry_** : Vérifie si une chaîne de caractères ne contient que des caractères alphanumériques et des traits de soulignement.
+
 **_duplicate_** : Vérifie si un nom d'attribut est en double dans la liste des attributs.
+
 **_isValidFileName_** : Vérifie si une chaîne de caractères est un nom de fichier valide.
 
 ## **Exemple d'utilisation**
