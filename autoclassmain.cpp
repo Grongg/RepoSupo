@@ -1,6 +1,4 @@
 #include "autoclass.hpp"
-#include <map>
-#include <utility>
 
 using namespace std;
 
@@ -106,8 +104,8 @@ int main()
     if (!isValidFileName(className))
         cout << "machin diozndzio" << endl;
     className[0] = toupper(className[0]);
-    // menu(className);
-    // headerfilegenerator(className, attr);
+    menu(className);
+    headerfilegenerator(className, attr);
     // sourcefilegenerator(className, attr);
     // mainfilegenerator(className, attr);
     // makefilegenerator(className);

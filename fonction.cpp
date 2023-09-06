@@ -1,10 +1,6 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
 #include "autoclass.hpp"
 
-void headerfilegenerator(std::string className, std::vector<std::string> attributs)
+void headerfilegenerator(std::string className, std::map<std::string, std::string> attributs)
 {
     std::ofstream headerFile(className + ".h");
     std::string constructor = "";
