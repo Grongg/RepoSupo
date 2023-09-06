@@ -69,7 +69,7 @@ void sourcefilegenerator(std::string className, std::vector<std::string> attribu
     }
     sourceFile << "}";
     sourceFile << "\n";
-     for (size_t i = 0; i < attributs.size(); i++)
+    for (size_t i = 0; i < attributs.size(); i++)
     {
         if (i + 1 >= attributs.size())
             constructor += "std::string _" + attributs[i];
@@ -113,7 +113,7 @@ void mainfilegenerator(std::string className, std::vector<std::string> attributs
     {
         tmp = attributs[i];
         tmp[0] = toupper(tmp[0]);
-        mainFile << "\tint randomNb" << j <<" = rand() % 100;" << std::endl;
+        mainFile << "\tint randomNb" << j << " = rand() % 100;" << std::endl;
         mainFile << "\tobj.set" << tmp << "(std::to_string(randomNb" << j << "));\n";
     }
     for (size_t i = 0; i < attributs.size(); i++)
@@ -146,4 +146,22 @@ void makefilegenerator(std::string className)
     makefile << "\trm -f " << className << ".cpp" << std::endl;
     makefile << "\trm -f main.cpp" << std::endl;
     makefile.close();
+}
+
+bool validatentry(const std::string blabla)
+{
+    for (char x : blabla)
+    {
+        if (!isalnum(x))
+        {
+            return false;
+        }
+        return true;
+    }
+}
+
+bool duplicate(const std::string attrName)
+{
+
+    return find(attr.begin(), attr.end(), attrName) != attr.end();
 }
