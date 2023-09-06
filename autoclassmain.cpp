@@ -48,6 +48,14 @@ string getType(string attribut)
     return type;
 }
 
+void displayattribut()
+{
+    for (const auto &n : attributTypes)
+    {
+        std::cout << n;
+    }
+}
+
 void menu(string className)
 {
     string attribut;
@@ -72,7 +80,6 @@ void menu(string className)
     else
     {
         getType(attribut);
-
 
         while (boucleinf == true)
         {
