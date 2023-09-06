@@ -9,7 +9,7 @@ void dispAttr()
 {
     cout << "Les attributs et leurs types sont sont:" << endl;
     cout << "-------------------" << endl;
-    for (const auto& p : attr)
+    for (const auto &p : attr)
         std::cout << p.first << " => " << p.second << '\n';
     cout << "-------------------" << endl;
 }
@@ -34,6 +34,10 @@ string getType(string attribut)
 
     cout << "Veuillez entrer le type de l'attribut:" << endl;
     getline(cin, type);
+    if (!validateEntry(type))
+    {
+        cout << "Merci de na pas utilsé de caractère spéciaux";
+    }
     if (!checkType(type))
     {
         cout << "Type ne fais pas partie de la liste, Veuillez reessayer" << endl;
@@ -50,11 +54,14 @@ void menu(string className)
     string another;
     bool boucleinf = true;
 
-    cout << 
-            "Veuillez entrer un attribut de la classe:\n" 
-            << "(l'attribut \"end\" est interdit)"
-        << endl;
+    cout << "Veuillez entrer un attribut de la classe:\n"
+         << "(l'attribut \"end\" est interdit)"
+         << endl;
     getline(cin, attribut);
+    if (!validateEntry(attribut))
+    {
+        cout << "Erreur, vous ne pouvez pas utilisez de caractère spéciaux";
+    }
     if (attribut == "end")
     {
         cout << "Erreur, attribut end trouvé." << endl;
@@ -65,20 +72,19 @@ void menu(string className)
     else
     {
         getType(attribut);
-        cout << 
-            "Voulez vous ajouter un autre attribut ?\n"
-            << "1 - Oui\n"
-            << "2 - Non"
-        << endl;
+        cout << "Voulez vous ajouter un autre attribut (Y/N)?\n"
+
+             << endl;
+
         while (boucleinf == true)
         {
             getline(cin, another);
-            if (another == "oui" || another == "o")
+            if (another == "y" || another == "Y")
             {
                 boucleinf = false;
                 menu(className);
             }
-            else if (another == "non" || another == "n")
+            else if (another == "n" || another == "N")
             {
                 boucleinf = false;
                 dispAttr();
@@ -86,7 +92,7 @@ void menu(string className)
             }
             else
             {
-                cout << "Entrer oui ou non svp." << endl;
+                cout << "Entrer \"y\" ou \"n\"svp." << endl;
                 continue;
             }
         }
