@@ -53,7 +53,7 @@ void displayattribut()
 {
     for (const auto &n : attributTypes)
     {
-        std::cout << n;
+        std::cout << n << std::endl;
     }
 }
 
