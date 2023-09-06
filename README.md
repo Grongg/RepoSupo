@@ -59,10 +59,15 @@ git restore <nom du fichier> -> reset le contenu du fichier sur la derniere vers
 
 **_step 7_**=> Vous pouvez observer la création des différents fichier dans le dossier .
 
+**_step 8_**=> Vous pouvez verrifier en tapant la console "make" en minuscule.
+
+**_step 9_**=> lancé le programme dans le console apres avoir faire le make => "./myprogram
+
 ## **Remarque**
 
 Le programme s'assure que les noms d'attributs sont valides (alphanumériques sans caractères spéciaux).
 Il vérifie les noms d'attributs en double.
+La fonction validatEntryAttribut ne fonctionne pas -\_-.
 Les fichiers générés sont nommés en fonction du nom de classe fourni.
 Le programme principal généré démontre comment définir et obtenir des valeurs d'attribut pour la classe.
 
