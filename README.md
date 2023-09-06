@@ -28,13 +28,17 @@ git restore <nom du fichier> -> reset le contenu du fichier sur la derniere vers
 
 ## **Fonctions**
 
-    ***headerfilegenerator*** : Génère le fichier d'en-tête de classe en fonction du nom de la classe et des attributs fournis.
-    ***sourcefilegenerator*** : Génère le fichier source de classe avec les méthodes de constructeur et de getter/setter.
-    ***mainfilegenerator*** : Génère un programme principal d'exemple pour démontrer l'utilisation de la classe.
-    ***makefilegenerator*** : Génère un fichier Makefile pour la compilation du programme.
-    ***validatentry*** : Vérifie si une chaîne de caractères ne contient que des caractères alphanumériques et des traits de soulignement.
-    ***duplicate*** : Vérifie si un nom d'attribut est en double dans la liste des attributs.
-    ***isValidFileName*** : Vérifie si une chaîne de caractères est un nom de fichier valide.
+**_headerfilegenerator_** : Génère le fichier d'en-tête de classe en fonction du nom de la classe et des attributs fournis.
+**_sourcefilegenerator_** : Génère le fichier source de classe avec les méthodes de constructeur et de getter/setter.
+**_mainfilegenerator_** : Génère un programme principal d'exemple pour démontrer l'utilisation de la classe.
+**_makefilegenerator_** : Génère un fichier Makefile pour la compilation du programme.
+**_validatentry_** : Vérifie si une chaîne de caractères ne contient que des caractères alphanumériques et des traits de soulignement.
+**_duplicate_** : Vérifie si un nom d'attribut est en double dans la liste des attributs.
+**_isValidFileName_** : Vérifie si une chaîne de caractères est un nom de fichier valide.
+
+## **Exemple d'utilisation**
+
+    Work in progress !
 
 ## **Remarque**
 
