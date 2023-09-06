@@ -1,5 +1,25 @@
 #include "autoclass.hpp"
 
+bool validateEntryAttribut(const std::string blabla)
+{
+    if (blabla == "string" 
+        || blabla == "int" 
+        || blabla == "float" 
+        || blabla == "double" 
+        || blabla == "char" 
+        || blabla == "bool" 
+        || blabla == "std" 
+        || blabla == "null" 
+        || blabla == "NULL" 
+        || blabla == "vector" 
+        || blabla == "operator")
+    {
+        return false;
+    }
+
+    return true;
+}
+
 void headerfilegenerator(std::string className, std::map<std::string, std::string> attributs)
 {
     size_t ctn = 0;
@@ -19,7 +39,7 @@ void headerfilegenerator(std::string className, std::map<std::string, std::strin
     headerFile << std::endl;
     headerFile << "class " << className << " {" << std::endl;
     headerFile << "public:" << std::endl;
-    for (const auto &elem : attributs)
+    for (const auto& elem : attributs)
     {
         if (ctn + 1 >= attributs.size())
         {
@@ -40,35 +60,33 @@ void headerfilegenerator(std::string className, std::map<std::string, std::strin
     headerFile << "\t" << className << "(" << constructor << ");" << std::endl;
     headerFile << endl;
     std::string tmp;
-    for (const auto &elem : attributs)
+    for (const auto& elem : attributs)
     {
         tmp = elem.first;
         tmp[0] = toupper(tmp[0]);
         if (elem.second == "string")
         {
-            headerFile << "\t"
-                       << "std::" << elem.second << " get" << tmp << "() const;" << std::endl;
-            headerFile << "\tvoid set" << tmp << "("
-                       << "std::" << elem.second << " " << elem.first << ");" << std::endl;
+            headerFile << "\t" << "std::" << elem.second <<  " get" << tmp << "() const;" << std::endl;
+            headerFile << "\tvoid set" << tmp << "(" <<  "std::" << elem.second << " " << elem.first << ");" << std::endl;
         }
         else
         {
-            headerFile << "\t" << elem.second << " get" << tmp << "() const;" << std::endl;
+            headerFile << "\t" << elem.second <<  " get" << tmp << "() const;" << std::endl;
             headerFile << "\tvoid set" << tmp << "(" << elem.second << " " << elem.first << ");" << std::endl;
         }
         headerFile << std::endl;
     }
     headerFile << "private:" << std::endl;
-    for (const auto &elem : attributs)
+    for (const auto& elem : attributs)
     {
         if (elem.second == "string")
         {
             headerFile << "\t"
-                       << "std::" << elem.second << " " << elem.first << ";" << std::endl;
+                   << "std::" << elem.second << " " << elem.first << ";" << std::endl;
         }
         else
-            headerFile << "\t"
-                       << elem.second << " " << elem.first << ";" << std::endl;
+            headerFile  << "\t"
+                        << elem.second << " " << elem.first << ";" << std::endl;
     }
     headerFile << "};" << std::endl;
     headerFile << std::endl;
@@ -76,74 +94,100 @@ void headerfilegenerator(std::string className, std::map<std::string, std::strin
     headerFile.close();
 }
 
-void sourcefilegenerator(std::string className, std::vector<std::string> attributs)
+void sourcefilegenerator(std::string className, std::map<std::string, std::string> attributes)
 {
     std::ofstream sourceFile(className + ".cpp");
-    std::string constructor, tmp;
+    std::string constructor, tmp, init;
+    size_t ctn = 0;
+
     sourceFile << "#include \"" << className << ".h\"" << std::endl;
     sourceFile << std::endl;
-    sourceFile << "    // Constructeur par défaut" << std::endl;
+    sourceFile << "// Constructeur par défaut" << std::endl;
     sourceFile << "\n";
     sourceFile << className << "::" << className << "()"
                << "{\n";
-    for (size_t i = 0; i < attributs.size(); i++)
+    for (const auto& elem : attributes)
     {
-        sourceFile << "\t" << attributs[i] << " = \"\";\n";
+        init = "\t" + initAttributes(0, elem.first, elem.second, attributes) + ";";
+        sourceFile << init << endl;
     }
     sourceFile << "}";
     sourceFile << "\n";
-    for (size_t i = 0; i < attributs.size(); i++)
+    for (const auto& elem : attributes)
     {
-        if (i + 1 >= attributs.size())
-            constructor += "std::string _" + attributs[i];
+        if (ctn + 1 >= attributes.size())
+        {
+            if (elem.second == "string")
+                constructor += "std::";
+            constructor += elem.second + " _" + elem.first;
+        }
         else
-            constructor += "std::string _" + attributs[i] + ", ";
+        {
+            if (elem.second == "string")
+                constructor += "std::";
+            constructor += elem.second + " _" + elem.first + ", ";
+        }
+        ctn++;
     }
+    ctn = 0;
     sourceFile << className << "::" << className << "(" << constructor << ")"
                << "{\n\n";
-    for (size_t i = 0; i < attributs.size(); i++)
+    for (const auto& elem : attributes)
     {
-        sourceFile << "\tthis->" << attributs[i] << " = _" << attributs[i] << ";" << std::endl;
+        sourceFile << "\tthis->" << elem.first << " = _" << elem.first << ";" << std::endl;
     }
     sourceFile << "}\n";
-
-    // getvalue/setvalue
     sourceFile << "\n";
-    for (size_t i = 0; i < attributs.size(); i++)
+    for (const auto& elem : attributes)
     {
-        tmp = attributs[i];
+        tmp = elem.first;
         tmp[0] = toupper(tmp[0]);
-        sourceFile << "std::string " << className << "::get" << tmp << "()const{\n";
-        sourceFile << "\treturn " << attributs[i] << ";\n";
+        if (elem.second == "string")
+        {
+            sourceFile << "std::" << elem.second << " " << className << "::get" << tmp << "() const{\n";
+        }
+        else
+        {
+            sourceFile << elem.second << " " << className << "::get" << tmp << "() const{\n";
+        }
+        sourceFile << "\treturn " << elem.first << ";\n";
         sourceFile << "}\n";
-        sourceFile << "void " << className << "::set" << tmp << "("
-                   << "std::string " << attributs[i] << "){\n";
-        sourceFile << "\tthis->" << attributs[i] << " = " << attributs[i] << ";\n";
+        if (elem.second == "string")
+        {
+            sourceFile << "void " << className << "::set" << tmp << "("
+                    << "std::" << elem.second << " " << elem.first << "){\n";
+        }
+        else
+        {
+            sourceFile << "void " << className << "::set" << tmp << "("
+                << elem.second << " " << elem.first << "){\n";
+        }
+        sourceFile << "\tthis->" << elem.first << " = " << elem.first << ";\n";
         sourceFile << "}";
+        sourceFile << endl;
+        sourceFile << endl;
     }
     sourceFile.close();
 }
-void mainfilegenerator(std::string className, std::map<std::string, std::string> attributs)
+
+void mainfilegenerator(std::string className, std::map<std::string, std::string> attributes)
 {
     std::ofstream mainFile("main.cpp");
     std::string tmp;
+
     mainFile << "#include \"" << className << ".h\"" << std::endl;
     mainFile << std::endl;
     mainFile << "int main() {" << std::endl;
     mainFile << "\t" << className << " obj;\n";
-    mainFile << "\tsrand((unsigned) time(NULL));" << std::endl;
-    for (size_t i = 0, j = 1; i < attributs.size(); i++, j++)
+    for (const auto& elem : attributes)
     {
-        tmp = attributs[i];
+        tmp = elem.first;
         tmp[0] = toupper(tmp[0]);
-        mainFile << "\tint randomNb" << j << " = rand() % 100;" << std::endl;
-        mainFile << "\tobj.set" << tmp << "(std::to_string(randomNb" << j << "));\n";
-    }
-    for (size_t i = 0; i < attributs.size(); i++)
-    {
-        tmp = attributs[i];
-        tmp[0] = toupper(tmp[0]);
-        mainFile << "\tstd::cout << \"" << attributs[i] << " = \" "
+        if (elem.second == "string")
+            mainFile << "\tobj.set" << tmp << "(" << "\"1\"" << ");" << std::endl;
+        else
+            mainFile << "\tobj.set" << tmp << "(" << "1" << ");" << std::endl;
+        mainFile << "\tstd::cout << \"" << elem.first << " = \" "
                  << "<< obj.get" << tmp << "() << std::endl;" << std::endl;
     }
 
@@ -156,7 +200,7 @@ void makefilegenerator(std::string className)
 {
     std::ofstream makefile("Makefile");
     makefile << "CXX = g++" << std::endl;
-    makefile << "CXXFLAGS = -std=c++11 -Wall" << std::endl;
+    makefile << "CXXFLAGS = -std=c++11 -Wall -Werror" << std::endl;
     makefile << std::endl;
     makefile << "all: myprogram" << std::endl;
     makefile << std::endl;
@@ -181,23 +225,12 @@ bool validateEntry(const std::string blabla)
             return false;
         }
     }
-
-    return true;
-}
-// fonction pour les donnée attribut
-bool validateEntryAttribut(const std::string blabla)
-{
-    if (blabla == "string" || blabla == "int" || blabla == "float" || blabla == "double" || blabla == "char" || blabla == "bool" || blabla == "std" || blabla = "null" || blabla = "NULL" || blabla = "vector" || blabla = "operator")
-    {
-        return false;
-    }
-
     return true;
 }
 // fonction pour le duplicate
 bool duplicate(const std::string attrName, std::vector<std::string> attr)
 {
-    // adapt to map
+    //adapt to map
     return find(attr.begin(), attr.end(), attrName) != attr.end();
 }
 

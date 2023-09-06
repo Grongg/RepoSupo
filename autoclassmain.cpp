@@ -119,7 +119,7 @@ int main()
     getline(cin, className);
     try
     {
-        validateEntry(className)
+        validateEntry(className);
     }
     catch (const std::exception &e)
     {
@@ -129,9 +129,9 @@ int main()
     className[0] = toupper(className[0]);
     menu(className);
     headerfilegenerator(className, attr);
-    // sourcefilegenerator(className, attr);
-    // mainfilegenerator(className, attr);
-    // makefilegenerator(className);
+    sourcefilegenerator(className, attr);
+    mainfilegenerator(className, attr);
+    makefilegenerator(className);
 
     return 0;
 }
