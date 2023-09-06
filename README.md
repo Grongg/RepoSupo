@@ -1,12 +1,3 @@
-# RepoSupo
-
-**How to push**
-(reminder pour guillaume)
-git status -> voir ou en est l'état des fichiers: rouge pas add, vert à bien été add.
-git add <nom du fichier> ou git add . ou git add \* -> ajouter un/tous les fichiers pour le git commit -m "<message de commit>" -> envoyer les fichiers ajouter dans le tampon d'envoi
-git push ou git push <premiere branche> <deuxieme branche> -> envoi les fichiers dans le tampon d'envoi sur le dossier sur le serveur git
-git restore <nom du fichier> -> reset le contenu du fichier sur la derniere version du dossier sur le serveur git
-
 # **Générateur de Code AutoClass**
 
     Ce programme génère des fichiers de classe C++ en fonction de l'entrée de l'utilisateur pour les attributs de la classe. Il crée les fichiers suivants pour une classe nommée VotreNomDeClasse :
