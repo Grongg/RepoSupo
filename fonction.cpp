@@ -2,53 +2,76 @@
 
 void headerfilegenerator(std::string className, std::map<std::string, std::string> attributs)
 {
-    // std::ofstream headerFile(className + ".h");
-    // std::string constructor = "";
-    // std::string headerName = className;
+    size_t ctn = 0;
+    std::ofstream headerFile(className + ".h");
+    std::string constructor = "";
+    std::string headerName = className;
 
-    // for (int i = 0; headerName[i] != '\0'; i++)
-    // {
-    //     headerName[i] = toupper(headerName[i]);
-    // }
-    // headerFile << "#ifndef " << headerName << "_H" << std::endl;
-    // headerFile << "#define " << headerName << "_H" << std::endl;
-    // headerFile << "#include <iostream>" << std::endl;
-    // headerFile << "#include <string>" << std::endl;
+    for (int i = 0; headerName[i] != '\0'; i++)
+    {
+        headerName[i] = toupper(headerName[i]);
+    }
+    headerFile << "#ifndef " << headerName << "_H" << std::endl;
+    headerFile << "#define " << headerName << "_H" << std::endl;
+    headerFile << "#include <iostream>" << std::endl;
+    headerFile << "#include <string>" << std::endl;
 
-    // headerFile << std::endl;
-    // headerFile << "class " << className << " {" << std::endl;
-    // headerFile << "public:" << std::endl;
-    // for (size_t i = 0; i < attributs.size(); i++)
-    // {
-    //     if (i + 1 >= attributs.size())
-    //         constructor += "std::string _" + attributs[i];
-    //     else
-    //         constructor += "std::string _" + attributs[i] + ", ";
-    // }
-    // for (const auto& n : attributs)
-    //  std::cout << n.first << " = " << n.second << "; ";
-    // headerFile << "\t" << className << "();" << std::endl;
-    // headerFile << "\t" << className << "(" << constructor << ");" << std::endl;
-    // headerFile << endl;
-    // std::string tmp;
-    // for (size_t i = 0; i < attributs.size(); i++)
-    // {
-    //     tmp = attributs[i];
-    //     tmp[0] = toupper(tmp[0]);
-    //     headerFile << "\tstd::string get" << tmp << "() const;" << std::endl;
-    //     headerFile << "\tvoid set" << tmp << "(std::string " << attributs[i] << ");" << std::endl;
-    //     headerFile << std::endl;
-    // }
-    // headerFile << "private:" << std::endl;
-    // for (size_t i = 0; i < attributs.size(); i++)
-    // {
-    //     headerFile << "\t"
-    //                << "std::string " << attributs[i] << ";" << std::endl;
-    // }
-    // headerFile << "};" << std::endl;
-    // headerFile << std::endl;
-    // headerFile << "#endif // " << headerName << "_H" << std::endl;
-    // headerFile.close();
+    headerFile << std::endl;
+    headerFile << "class " << className << " {" << std::endl;
+    headerFile << "public:" << std::endl;
+    for (const auto& elem : attributs)
+    {
+        if (ctn + 1 >= attributs.size())
+        {
+            if (elem.second == "string")
+                constructor += "std::";
+            constructor += elem.second + " _" + elem.first;
+        }
+        else
+        {
+            if (elem.second == "string")
+                constructor += "std::";
+            constructor += elem.second + " _" + elem.first + ", ";
+        }
+        ctn++;
+    }
+    ctn = 0;
+    headerFile << "\t" << className << "();" << std::endl;
+    headerFile << "\t" << className << "(" << constructor << ");" << std::endl;
+    headerFile << endl;
+    std::string tmp;
+    for (const auto& elem : attributs)
+    {
+        tmp = elem.first;
+        tmp[0] = toupper(tmp[0]);
+        if (elem.second == "string")
+        {
+            headerFile << "\t" << "std::" << elem.second <<  " get" << tmp << "() const;" << std::endl;
+            headerFile << "\tvoid set" << tmp << "(" <<  "std::" << elem.second << " " << elem.first << ");" << std::endl;
+        }
+        else
+        {
+            headerFile << "\t" << elem.second <<  " get" << tmp << "() const;" << std::endl;
+            headerFile << "\tvoid set" << tmp << "(" << elem.second << " " << elem.first << ");" << std::endl;
+        }
+        headerFile << std::endl;
+    }
+    headerFile << "private:" << std::endl;
+    for (const auto& elem : attributs)
+    {
+        if (elem.second == "string")
+        {
+            headerFile << "\t"
+                   << "std::" << elem.second << " " << elem.first << ";" << std::endl;
+        }
+        else
+            headerFile  << "\t"
+                        << elem.second << " " << elem.first << ";" << std::endl;
+    }
+    headerFile << "};" << std::endl;
+    headerFile << std::endl;
+    headerFile << "#endif // " << headerName << "_H" << std::endl;
+    headerFile.close();
 }
 
 void sourcefilegenerator(std::string className, std::vector<std::string> attributs)

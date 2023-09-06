@@ -3,7 +3,7 @@
 using namespace std;
 
 map<string, string> attr;
-vector<string> attributTypes = {"int", "long", "float", "double", "char", "string", "bool"};
+vector<string> attributTypes = {"int", "float", "double", "char", "string", "bool"};
 
 void dispAttr()
 {
@@ -118,7 +118,7 @@ int main()
         cout << "machin diozndzio" << endl;
     className[0] = toupper(className[0]);
     menu(className);
-    // headerfilegenerator(className, attr);
+    headerfilegenerator(className, attr);
     // sourcefilegenerator(className, attr);
     // mainfilegenerator(className, attr);
     // makefilegenerator(className);
