@@ -41,7 +41,12 @@ git restore <nom du fichier> -> reset le contenu du fichier sur la derniere vers
 
 ## **Exemple d'utilisation**
 
-    Work in progress !
+**_step 1_** => Télécharger les fichier "autoclass.hpp" , "autoclassmain.cpp" & "fonction.cpp".
+**_step 2_** => Ouvrir un ide type "Visual studio code".
+**_step 3_**=> Ouvrir un nouveau terminal dans "visual studio code".
+**_step 4_**=> Se placer dans le dossier ou les fichier autoclass.hpp" , "autoclassmain.cpp" & "fonction.cpp" se trouve. utilisez les commande cd nomdedossier et cd .. pour naviguer.
+**_step 5_**=> compiler les fichier avec la commande g++ autoclass.hpp , "autoclassmain.cpp fonction.cpp.
+**_step 6_**=> Suivre les instruction du programme
 
 ## **Remarque**
 
