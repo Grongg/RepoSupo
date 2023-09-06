@@ -71,6 +71,10 @@ void menu(string className)
     {
         cout << "Erreur, vous ne pouvez pas utilisez de caractère spéciaux" << endl;
     }
+    if (!validateEntryAttribut(attribut))
+    {
+        cout << "Erreur, vous ne pouvez pas des nom de methode ou fonction du language c++" << endl;
+    }
     if (attribut == "end")
     {
         cout << "Erreur, attribut end trouvé." << endl;
@@ -120,14 +124,6 @@ int main()
     catch (const std::exception &e)
     {
         std::cerr << "Error:9001 Merci de ne pas utiliser de Caractère spéciaux =>" << e.what() << '\n';
-    }
-    try
-    {
-        isValidFileName(className)
-    }
-    catch (const std::exception &e)
-    {
-        std::cerr << "Error:9002 Merci de ne pas utiliser de Caractère spéciaux =>" << e.what() << '\n';
     }
 
     className[0] = toupper(className[0]);

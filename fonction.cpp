@@ -19,7 +19,7 @@ void headerfilegenerator(std::string className, std::map<std::string, std::strin
     headerFile << std::endl;
     headerFile << "class " << className << " {" << std::endl;
     headerFile << "public:" << std::endl;
-    for (const auto& elem : attributs)
+    for (const auto &elem : attributs)
     {
         if (ctn + 1 >= attributs.size())
         {
@@ -40,33 +40,35 @@ void headerfilegenerator(std::string className, std::map<std::string, std::strin
     headerFile << "\t" << className << "(" << constructor << ");" << std::endl;
     headerFile << endl;
     std::string tmp;
-    for (const auto& elem : attributs)
+    for (const auto &elem : attributs)
     {
         tmp = elem.first;
         tmp[0] = toupper(tmp[0]);
         if (elem.second == "string")
         {
-            headerFile << "\t" << "std::" << elem.second <<  " get" << tmp << "() const;" << std::endl;
-            headerFile << "\tvoid set" << tmp << "(" <<  "std::" << elem.second << " " << elem.first << ");" << std::endl;
+            headerFile << "\t"
+                       << "std::" << elem.second << " get" << tmp << "() const;" << std::endl;
+            headerFile << "\tvoid set" << tmp << "("
+                       << "std::" << elem.second << " " << elem.first << ");" << std::endl;
         }
         else
         {
-            headerFile << "\t" << elem.second <<  " get" << tmp << "() const;" << std::endl;
+            headerFile << "\t" << elem.second << " get" << tmp << "() const;" << std::endl;
             headerFile << "\tvoid set" << tmp << "(" << elem.second << " " << elem.first << ");" << std::endl;
         }
         headerFile << std::endl;
     }
     headerFile << "private:" << std::endl;
-    for (const auto& elem : attributs)
+    for (const auto &elem : attributs)
     {
         if (elem.second == "string")
         {
             headerFile << "\t"
-                   << "std::" << elem.second << " " << elem.first << ";" << std::endl;
+                       << "std::" << elem.second << " " << elem.first << ";" << std::endl;
         }
         else
-            headerFile  << "\t"
-                        << elem.second << " " << elem.first << ";" << std::endl;
+            headerFile << "\t"
+                       << elem.second << " " << elem.first << ";" << std::endl;
     }
     headerFile << "};" << std::endl;
     headerFile << std::endl;
@@ -121,7 +123,7 @@ void sourcefilegenerator(std::string className, std::vector<std::string> attribu
     }
     sourceFile.close();
 }
-void mainfilegenerator(std::string className, std::vector<std::string> attributs)
+void mainfilegenerator(std::string className, std::map<std::string, std::string> attributs)
 {
     std::ofstream mainFile("main.cpp");
     std::string tmp;
@@ -179,12 +181,23 @@ bool validateEntry(const std::string blabla)
             return false;
         }
     }
+
+    return true;
+}
+// fonction pour les donnée attribut
+bool validateEntryAttribut(const std::string blabla)
+{
+    if (blabla == "string" || blabla == "int" || blabla == "float" || blabla == "double" || blabla == "char" || blabla == "bool" || blabla == "std" || blabla = "null" || blabla = "NULL" || blabla = "vector" || blabla = "operator")
+    {
+        return false;
+    }
+
     return true;
 }
 // fonction pour le duplicate
 bool duplicate(const std::string attrName, std::vector<std::string> attr)
 {
-    //adapt to map
+    // adapt to map
     return find(attr.begin(), attr.end(), attrName) != attr.end();
 }
 
