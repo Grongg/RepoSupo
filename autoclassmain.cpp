@@ -28,12 +28,20 @@ bool checkType(string type)
     return true;
 }
 
+void displayAttribut()
+{
+    for (const auto &n : attributTypes)
+    {
+        std::cout << n << std::endl;
+    }
+}
+
 string getType(string attribut)
 {
     string type;
 
-    cout << "Veuillez entrer le type de l'attribut:" << endl;
-    displayattribut();
+    cout << "Veuillez entrer le type de l'attribut parmis la Liste ci-dessous: " << endl;
+    displayAttribut();
     getline(cin, type);
     if (!validateEntry(type))
     {
@@ -47,14 +55,6 @@ string getType(string attribut)
     attr.emplace(make_pair(attribut, type));
 
     return type;
-}
-
-void displayattribut()
-{
-    for (const auto &n : attributTypes)
-    {
-        std::cout << n << std::endl;
-    }
 }
 
 void menu(string className)
