@@ -60,7 +60,7 @@ void menu(string className)
     getline(cin, attribut);
     if (!validateEntry(attribut))
     {
-        cout << "Erreur, vous ne pouvez pas utilisez de caractère spéciaux";
+        cout << "Erreur, vous ne pouvez pas utilisez de caractère spéciaux" << endl;
     }
     if (attribut == "end")
     {
@@ -72,12 +72,11 @@ void menu(string className)
     else
     {
         getType(attribut);
-        cout << "Voulez vous ajouter un autre attribut (Y/N)?\n"
 
-             << endl;
 
         while (boucleinf == true)
         {
+            cout << "Voulez vous ajouter un autre attribut (Y/N)?" << endl;
             getline(cin, another);
             if (another == "y" || another == "Y")
             {
@@ -92,7 +91,7 @@ void menu(string className)
             }
             else
             {
-                cout << "Entrer \"y\" ou \"n\"svp." << endl;
+                cout << "Entrer \"y\" ou \"n\" svp." << endl;
                 continue;
             }
         }
@@ -111,7 +110,7 @@ int main()
         cout << "machin diozndzio" << endl;
     className[0] = toupper(className[0]);
     menu(className);
-    headerfilegenerator(className, attr);
+    // headerfilegenerator(className, attr);
     // sourcefilegenerator(className, attr);
     // mainfilegenerator(className, attr);
     // makefilegenerator(className);
