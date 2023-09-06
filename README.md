@@ -28,6 +28,7 @@ git restore <nom du fichier> -> reset le contenu du fichier sur la derniere vers
 
 ## **Fonctions**
 
+**_menu_**: Fonction d'affichage du menu utilsateur.
 **_headerfilegenerator_** : Génère le fichier d'en-tête de classe en fonction du nom de la classe et des attributs fournis.
 **_sourcefilegenerator_** : Génère le fichier source de classe avec les méthodes de constructeur et de getter/setter.
 **_mainfilegenerator_** : Génère un programme principal d'exemple pour démontrer l'utilisation de la classe.
@@ -38,6 +39,9 @@ git restore <nom du fichier> -> reset le contenu du fichier sur la derniere vers
 **_duplicate_** : Vérifie si un nom d'attribut est en double dans la liste des attributs.
 
 **_isValidFileName_** : Vérifie si une chaîne de caractères est un nom de fichier valide.
+**_checkType_**: Fonction qui verrifie que le choix soit diponible.
+**_getType_**: Fonction qui stock le type choisie par l' utilisateur.
+**_displayAttribut_**: Fonction qui affiche les types d'attribut disponible.
 
 ## **Exemple d'utilisation**
 
@@ -47,7 +51,7 @@ git restore <nom du fichier> -> reset le contenu du fichier sur la derniere vers
 
 **_step 3_**=> Ouvrir un nouveau terminal dans "visual studio code".
 
-**_step 4_**=> Se placer dans le dossier ou les fichier autoclass.hpp" , "autoclassmain.cpp" & "fonction.cpp" se trouve. Utilisez les commande cd nomdedossier et cd .. afin pour naviguer.
+**_step 4_**=> Se placer dans le dossier ou les fichier autoclass.hpp" , "autoclassmain.cpp" & "fonction.cpp" se trouvent. Utilisez les commandes cd nomdedossier et cd .. afin pour naviguer.
 
 **_step 5_**=> compiler les fichier avec la commande g++ autoclass.hpp , "autoclassmain.cpp fonction.cpp.
 
