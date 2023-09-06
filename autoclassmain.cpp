@@ -33,6 +33,7 @@ string getType(string attribut)
     string type;
 
     cout << "Veuillez entrer le type de l'attribut:" << endl;
+    displayattribut();
     getline(cin, type);
     if (!validateEntry(type))
     {
