@@ -154,6 +154,7 @@ bool validatentry(const std::string blabla)
     {
         if (!isalnum(x))
         {
+            std::cout << "Code 187 : Merci de ne pas utilisé de caractère spéciaux ";
             return false;
         }
     }
