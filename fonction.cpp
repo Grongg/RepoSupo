@@ -161,7 +161,7 @@ bool validatentry(const std::string blabla)
     return true;
 }
 // fonction pour le duplicate
-bool duplicate(const std::string attrName)
+bool duplicate(const std::string attrName, std::vector<std::string> attr)
 {
 
     return find(attr.begin(), attr.end(), attrName) != attr.end();
