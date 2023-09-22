@@ -66,6 +66,7 @@
 **_step 3_**=> Ouvrir un nouveau terminal dans "visual studio code".
 
 **_step 4_**=> Se placer dans le dossier où les fichier autoclass.hpp" , "autoclassmain.cpp" et "fonction.cpp" se trouvent.
+
 **Utilisez les commandes cd nomdedossier et cd .. afin pour naviguer.**
 
 **_step 5_**=> faite un make
