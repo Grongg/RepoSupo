@@ -22,7 +22,10 @@
 
 ## **Variables Globales**
 **_map<string, string> attr_** : tableau de pair/tuples contenant les attributs et leurs types.
+
+
 **_const vector<string> attributTypes_** : tableau contenant les types disponibles pour l'utilisateur.
+
 
 ## **Fonctions**
 
