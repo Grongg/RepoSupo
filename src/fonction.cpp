@@ -1,31 +1,60 @@
 #include "autoclass.hpp"
 
-bool validateEntryAttribut(const std::string blabla)
+// fonction pour les données valides characteres speciaux
+bool validateEntry(const std::string blabla)
 {
+    for (char x : blabla)
+    {
+        if (!isalnum(x))
+        {
+            throw std::invalid_argument("Code 187 : Merci de ne pas utilisé de caractère spéciaux ");
+        }
+    }
+    return true;
+}
+
+// fonction pour les données valides c++ types
+bool validateEntryAttribut(std::string blabla)
+{
+    for (size_t i = 0; i < blabla.length(); i++)
+    {
+        blabla[i] = tolower(blabla[i]);
+    }
     if (blabla == "string" 
         || blabla == "int" 
         || blabla == "float" 
-        || blabla == "double" 
+        || blabla == "double"
+        || blabla == "long" 
         || blabla == "char" 
         || blabla == "bool" 
-        || blabla == "std" 
+        || blabla == "std"
         || blabla == "null" 
-        || blabla == "NULL" 
         || blabla == "vector" 
-        || blabla == "operator")
+        || blabla == "operator"
+        || blabla.find("std::") != std::string::npos
+        )
     {
-        return false;
+        throw std::invalid_argument("Error:9001: vous ne pouvez pas utiliser des types provenant de c++");
     }
 
     return true;
 }
 
+// fonction pour le duplicate
+bool duplicate(const std::string attrName, std::map<std::string, std::string> attributes)
+{
+    if (attributes.find(attrName) != attributes.end())
+        throw std::invalid_argument("Error:9003: attributs avec ce nom existe deja");
+    return false;
+}
+
 void headerfilegenerator(std::string className, std::map<std::string, std::string> attributs)
 {
     size_t ctn = 0;
-    std::ofstream headerFile(className + ".h");
+    std::ofstream headerFile(className + "/" + className + ".h");
     std::string constructor = "";
     std::string headerName = className;
+    std::string tmp;
 
     for (int i = 0; headerName[i] != '\0'; i++)
     {
@@ -59,7 +88,6 @@ void headerfilegenerator(std::string className, std::map<std::string, std::strin
     headerFile << "\t" << className << "();" << std::endl;
     headerFile << "\t" << className << "(" << constructor << ");" << std::endl;
     headerFile << endl;
-    std::string tmp;
     for (const auto& elem : attributs)
     {
         tmp = elem.first;
@@ -96,7 +124,7 @@ void headerfilegenerator(std::string className, std::map<std::string, std::strin
 
 void sourcefilegenerator(std::string className, std::map<std::string, std::string> attributes)
 {
-    std::ofstream sourceFile(className + ".cpp");
+    std::ofstream sourceFile(className + "/" + className + ".cpp");
     std::string constructor, tmp, init;
     size_t ctn = 0;
 
@@ -172,7 +200,7 @@ void sourcefilegenerator(std::string className, std::map<std::string, std::strin
 
 void mainfilegenerator(std::string className, std::map<std::string, std::string> attributes)
 {
-    std::ofstream mainFile("main.cpp");
+    std::ofstream mainFile(className + "/" + "main.cpp");
     std::string tmp;
 
     mainFile << "#include \"" << className << ".h\"" << std::endl;
@@ -198,7 +226,8 @@ void mainfilegenerator(std::string className, std::map<std::string, std::string>
 
 void makefilegenerator(std::string className)
 {
-    std::ofstream makefile("Makefile");
+    std::ofstream makefile(className + "/" + "Makefile");
+
     makefile << "CXX = g++" << std::endl;
     makefile << "CXXFLAGS = -std=c++11 -Wall -Werror" << std::endl;
     makefile << std::endl;
@@ -214,35 +243,11 @@ void makefilegenerator(std::string className)
     makefile << "\trm -f main.cpp" << std::endl;
     makefile.close();
 }
-// fonction pour les données valide
-bool validateEntry(const std::string blabla)
-{
-    for (char x : blabla)
-    {
-        if (!isalnum(x))
-        {
-            std::cout << "Code 187 : Merci de ne pas utilisé de caractère spéciaux ";
-            return false;
-        }
-    }
-    return true;
-}
-// fonction pour le duplicate
-bool duplicate(const std::string attrName, std::vector<std::string> attr)
-{
-    //adapt to map
-    return find(attr.begin(), attr.end(), attrName) != attr.end();
-}
 
-// Fonction pour valider le nom d' un fichier
-bool isValidFileName(const string &fileName)
+void classnamegenerator(std::string className)
 {
-    for (char c : fileName)
-    {
-        if (!isalnum(c) || c == '_' || c == '.')
-        {
-            return false;
-        }
-    }
-    return true;
+    std::ofstream classNameFile(".lastClassName");
+
+    classNameFile << className << std::endl;
+    classNameFile.close();
 }

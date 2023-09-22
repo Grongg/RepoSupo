@@ -3,7 +3,7 @@
 using namespace std;
 
 map<string, string> attr;
-vector<string> attributTypes = {"int", "float", "double", "char", "string", "bool"};
+const vector<string> attributTypes = {"int", "float", "double", "char", "string", "bool"};
 
 void dispAttr()
 {
@@ -45,7 +45,7 @@ string getType(string attribut)
     getline(cin, type);
     if (!validateEntry(type))
     {
-        cout << "Merci de na pas utilsé de caractère spéciaux";
+        cout << "Merci de ne pas utilser de caractère spéciaux";
     }
     if (!checkType(type))
     {
@@ -64,23 +64,30 @@ void menu(string className)
     bool boucleinf = true;
 
     cout << "Veuillez entrer un attribut de la classe:\n"
-         << "(l'attribut \"end\" est interdit)"
+         << "(l'attribut \"end\" est interdit)\n"
+         << "(exit ou quit pour sortir du programme)"
          << endl;
     getline(cin, attribut);
-    if (!validateEntry(attribut))
+    try
     {
-        cout << "Erreur, vous ne pouvez pas utilisez de caractère spéciaux" << endl;
+        validateEntry(attribut);
+        validateEntryAttribut(attribut);
+        duplicate(attribut, attr);
     }
-    if (!validateEntryAttribut(attribut))
+    catch (const std::invalid_argument &e)
     {
-        cout << "Erreur, vous ne pouvez pas des nom de methode ou fonction du language c++" << endl;
+        cout << e.what() << endl;
+        menu(className);
     }
     if (attribut == "end")
     {
         cout << "Erreur, attribut end trouvé." << endl;
-        // cin.clear();
-        // cin.ignore();
         menu(className);
+    }
+    else if (attribut == "exit" || attribut == "quit")
+    {
+        cout << "Sortie du programme" << endl;
+        exit(0);
     }
     else
     {
@@ -99,7 +106,12 @@ void menu(string className)
             {
                 boucleinf = false;
                 dispAttr();
-                break;
+                headerfilegenerator(className, attr);
+                sourcefilegenerator(className, attr);
+                mainfilegenerator(className, attr);
+                makefilegenerator(className);
+                classnamegenerator(className);
+                exit(0);
             }
             else
             {
@@ -110,28 +122,44 @@ void menu(string className)
     }
 }
 
-int main()
+void checkClassName(std::string *className)
 {
 
-    string className;
-
     cout << "Veuillez entrer le nom de la classe:" << endl;
-    getline(cin, className);
+    getline(cin, *className);
     try
     {
-        validateEntry(className);
+        validateEntry(*className);
+        validateEntryAttribut(*className);
     }
     catch (const std::exception &e)
     {
-        std::cerr << "Error:9001 Merci de ne pas utiliser de Caractère spéciaux =>" << e.what() << '\n';
+        cout << e.what() << endl;
+        checkClassName(className);
     }
+}
 
+int main()
+{
+    int status = 0;
+    string className;
+
+    checkClassName(&className);
     className[0] = toupper(className[0]);
+    try
+    {
+        status = filesystem::create_directories(className);
+        if (!status)
+        {
+            throw std::runtime_error("Warning: dossier avec le nom " + className +  " existe deja");
+        }
+    }
+    catch (const std::exception &r)
+    {
+        std::cerr << r.what() << std::endl;
+    }
     menu(className);
-    headerfilegenerator(className, attr);
-    sourcefilegenerator(className, attr);
-    mainfilegenerator(className, attr);
-    makefilegenerator(className);
+    cout << "Files generated in " << className << " folder" << endl;
 
     return 0;
 }
