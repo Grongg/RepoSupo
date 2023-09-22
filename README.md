@@ -28,11 +28,11 @@
 
 **_dispAttr()_** : Affiche les attributs et leurs types correspondant
 
-**_checkType(std::string)_**: Fonction qui verifie que le choix de type soit diponible en comparant la variable type à la liste des types.
+**_checkType(std::string)_**:Verifie que le choix de type soit diponible en comparant la variable type à la liste des types.
 
-**_displayAttribut(std::string)_**: Fonction qui affiche les types d'attribut disponible.
+**_displayAttribut(std::string)_**: Affiche les types d'attribut disponible.
 
-**_getType(std::string)_**: Fonction qui stock le type choisie par l' utilisateur.
+**_getType(std::string)_**: Stock le type choisie par l' utilisateur.
 
 **_menu(std::string)_**: Fonction principale regroupant les autres fonctions et affiche le menu pour l'utilsateur.
 
@@ -54,7 +54,7 @@
 
 **_classnamegenerator(std::string)_** : Génère un fichier .lastClassName contenant le dernier nom de la classe entrée.
 
-**_initAttributes(T, std::string, std::string, std::map<std::string, std::string>)_** : Template permettant d'initialiser les attributs selon leurs types.
+**_initAttributes(T, std::string, std::string, std::map<std::string, std::string>)_** : Initialise les attributs selon leurs types.
 
 
 ## **Exemple d'utilisation**
@@ -79,11 +79,13 @@
 
 **_step 9_**=> Voir les résultats.
 
-## **Remarque**
+## **Remarques**
 
 Le programme s'assure que les noms d'attributs sont valides (alphanumériques sans caractères spéciaux).
 Il vérifie les noms d'attributs en double.
+
 Les fichiers générés sont nommés en fonction du nom de classe fourni.
+
 Le programme principal généré démontre comment définir et obtenir des valeurs d'attribut pour la classe.
 
 Assurez-vous de compiler et d'exécuter ce programme dans un répertoire où vous avez des autorisations d'écriture pour la création de fichiers.
