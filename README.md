@@ -27,21 +27,35 @@
 ## **Fonctions**
 
 **_dispAttr()_** : Affiche les attributs et leurs types correspondant
+
 **_checkType(std::string)_**: Fonction qui verifie que le choix de type soit diponible en comparant la variable type à la liste des types.
+
 **_displayAttribut(std::string)_**: Fonction qui affiche les types d'attribut disponible.
+
 **_getType(std::string)_**: Fonction qui stock le type choisie par l' utilisateur.
+
 **_menu(std::string)_**: Fonction principale regroupant les autres fonctions et affiche le menu pour l'utilsateur.
-**_checkClassName(std::string *)_**: Vérifie si nom de la classe est valide
+
+**_checkClassName(std::string *)_**: Vérifie si nom de la classe est valide.
+
 **_validatEntry(const std::string)_** : Vérifie si une chaîne de caractères ne contient que des caractères alphanumériques et des traits de soulignement.
+
 **_validateEntryAttribut(std::string)_** : Vérifie si la chaine de caractères ne contient pas de types appartenant à la library c++.
+
 **_duplicate(const std::string, std::map<std::string, std::string>)_** : Vérifie si un nom d'attribut est en double dans la liste des attributs.
 
 **_headerfilegenerator(std::string, std::map<std::string, std::string>)_** : Génère le fichier d'en-tête de classe en fonction du nom de la classe et des attributs fournis.
+
 **_sourcefilegenerator(std::string, std::map<std::string, std::string>)_** : Génère le fichier source de classe avec les méthodes de constructeur et les getters/setters des attributs.
+
 **_mainfilegenerator(std::string, std::map<std::string, std::string>)_** : Génère un programme principal d'exemple pour démontrer l'utilisation de la classe.
+
 **_makefilegenerator(std::string)_** : Génère un fichier Makefile pour la compilation du programme.
+
 **_classnamegenerator(std::string)_** : Génère un fichier .lastClassName contenant le dernier nom de la classe entrée.
+
 **_initAttributes(T, std::string, std::string, std::map<std::string, std::string>)_** : Template permettant d'initialiser les attributs selon leurs types.
+
 
 ## **Exemple d'utilisation**
 
